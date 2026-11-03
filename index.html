@@ -34,26 +34,16 @@
     </div>
     <script>
       (function() {
-        function showStartupError(msg) {
+        window.addEventListener('error', function(e) {
           var box = document.getElementById('boot-error-box');
           var text = document.getElementById('boot-error-msg');
           var spinner = document.getElementById('boot-spinner');
           if (box && text) {
-            text.textContent = msg;
+            text.textContent = (e && e.message) ? e.message : 'Failed to load application assets.';
             box.style.display = 'block';
             if (spinner) spinner.style.display = 'none';
           }
-        }
-        window.addEventListener('error', function(e) {
-          if (document.getElementById('boot-status-text')) {
-            showStartupError(e.message || 'Error loading script assets. If deploying on GitHub Pages, verify that Settings > Pages is configured to use GitHub Actions.');
-          }
         });
-        setTimeout(function() {
-          if (document.getElementById('boot-status-text')) {
-            showStartupError('Assets are taking longer than usual to load. If hosting on GitHub Pages (https://bitsitmanagement-boop.github.io/freechat_04/), ensure GitHub Pages Source is set to "GitHub Actions" so Vite production bundles are served.');
-          }
-        }, 6000);
       })();
     </script>
     <script type="module" src="/src/main.tsx"></script>

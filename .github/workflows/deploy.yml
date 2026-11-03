@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -46,6 +46,15 @@ jobs:
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path || '/freechat_04/' }}
 
+      - name: Verify build artifacts
+        run: |
+          echo "=== Verifying build output ==="
+          test -f dist/index.html || { echo "ERROR: dist/index.html is missing!"; exit 1; }
+          test -d dist/assets || { echo "ERROR: dist/assets directory is missing!"; exit 1; }
+          echo "dist/index.html verified."
+          ls -lh dist/
+          ls -lh dist/assets/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -54,3 +63,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Deploy to gh-pages branch (fallback for branch deployment)
+        uses: peaceiris/actions-gh-pages@v4
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: false

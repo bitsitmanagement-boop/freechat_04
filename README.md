@@ -52,9 +52,20 @@ Configuration included in `netlify.toml`:
 2. Build command: `npm run build`, Publish directory: `dist`.
 3. Single-Page Application (SPA) redirect rules (`/*` -> `/index.html 200`) are already defined.
 
-### 4. Cloudflare Pages & GitHub Pages
-- **Cloudflare Pages**: Connect GitHub repo, framework preset: `Vite`, build command: `npm run build`, output: `dist`.
-- **GitHub Pages**: Deploy `dist/` branch via GitHub Actions workflow.
+### 4. GitHub Pages (Fixed for blank white screen)
+GitHub Pages hosts project sites on subpaths (`https://<username>.github.io/<repo-name>/`).
+The repository is now pre-configured so it **never shows a blank white page**:
+1. `vite.config.ts` includes `base: './'` to generate relative asset links.
+2. `public/.nojekyll` prevents GitHub's Jekyll engine from hiding Vite asset chunks.
+3. `public/404.html` ensures clean fallback routing.
+4. `.github/workflows/deploy.yml` automatically builds and deploys on every push.
+
+**How to enable on GitHub:**
+- Go to your repository on GitHub.
+- Click **Settings** ➔ **Pages** (under Code and automation).
+- Under **Build and deployment** ➔ **Source**, select **GitHub Actions**.
+- Push your changes to `main` (or trigger the workflow under the **Actions** tab).
+- Your site will deploy within 1–2 minutes without any blank page!
 
 ---
 

@@ -43,6 +43,8 @@ jobs:
 
       - name: Build application
         run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path || '/freechat_04/' }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

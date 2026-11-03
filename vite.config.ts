@@ -2,10 +2,13 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
-export default defineConfig(() => {
-  const basePath = process.env.BASE_PATH
-    ? (process.env.BASE_PATH.endsWith('/') ? process.env.BASE_PATH : `${process.env.BASE_PATH}/`)
-    : './';
+export default defineConfig(({command}) => {
+  // Use root '/' for local dev server, and GitHub Pages repo path '/freechat_04/' for production build
+  const basePath = command === 'serve'
+    ? '/'
+    : (process.env.BASE_PATH
+        ? (process.env.BASE_PATH.endsWith('/') ? process.env.BASE_PATH : `${process.env.BASE_PATH}/`)
+        : '/freechat_04/');
 
   return {
     base: basePath,

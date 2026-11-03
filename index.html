@@ -14,7 +14,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
   <body class="bg-slate-100 text-slate-900 antialiased selection:bg-emerald-500 selection:text-white">
-    <div id="root"></div>
+    <div id="root">
+      <div id="app-boot-container" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; padding: 24px; text-align: center;">
+        <div style="width: 60px; height: 60px; border-radius: 18px; background: linear-gradient(135deg, #059669 0%, #10b981 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35); margin-bottom: 20px;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h1 style="font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0; letter-spacing: -0.02em;">Hanzala04</h1>
+        <p id="boot-status-text" style="font-size: 14px; color: #64748b; margin: 0 0 20px 0;">Loading messenger and offline storage...</p>
+        <div id="boot-spinner" style="width: 28px; height: 28px; border: 3px solid #e2e8f0; border-top-color: #059669; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        <div id="boot-error-box" style="display: none; max-width: 460px; margin-top: 24px; padding: 16px 20px; background: #ffffff; border: 1px solid #fee2e2; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left;">
+          <div style="font-weight: 600; font-size: 14px; color: #b91c1c; margin-bottom: 6px;">Application Startup Notice</div>
+          <div id="boot-error-msg" style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px;"></div>
+          <button onclick="window.location.reload()" style="background: #059669; color: #ffffff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">Reload Application</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function() {
+        function showStartupError(msg) {
+          var box = document.getElementById('boot-error-box');
+          var text = document.getElementById('boot-error-msg');
+          var spinner = document.getElementById('boot-spinner');
+          if (box && text) {
+            text.textContent = msg;
+            box.style.display = 'block';
+            if (spinner) spinner.style.display = 'none';
+          }
+        }
+        window.addEventListener('error', function(e) {
+          if (document.getElementById('boot-status-text')) {
+            showStartupError(e.message || 'Error loading script assets. If deploying on GitHub Pages, verify that Settings > Pages is configured to use GitHub Actions.');
+          }
+        });
+        setTimeout(function() {
+          if (document.getElementById('boot-status-text')) {
+            showStartupError('Assets are taking longer than usual to load. If hosting on GitHub Pages (https://bitsitmanagement-boop.github.io/freechat_04/), ensure GitHub Pages Source is set to "GitHub Actions" so Vite production bundles are served.');
+          }
+        }, 6000);
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

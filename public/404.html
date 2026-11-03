@@ -4,14 +4,19 @@
     <meta charset="utf-8">
     <title>Hanzala04 Offline Messenger</title>
     <script>
-      // Single Page Apps for GitHub Pages
-      // Redirects 404 paths back to index.html with preservation
-      sessionStorage.redirect = location.href;
+      (function() {
+        var l = window.location;
+        var pathSegments = l.pathname.slice(1).split('/');
+        var basePath = pathSegments.length > 0 && pathSegments[0] ? '/' + pathSegments[0] + '/' : '/';
+        window.location.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          basePath + (l.search ? l.search : '') + (l.hash ? l.hash : '')
+        );
+      })();
     </script>
-    <meta http-equiv="refresh" content="0;URL='./'">
   </head>
   <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #f8fafc; color: #0f172a;">
     <h2 style="color: #059669;">Redirecting to Hanzala04...</h2>
-    <p>If you are not redirected automatically, <a href="./" style="color: #059669; font-weight: bold;">click here</a>.</p>
+    <p>If you are not redirected automatically, <a href="/freechat_04/" style="color: #059669; font-weight: bold;">click here</a>.</p>
   </body>
 </html>

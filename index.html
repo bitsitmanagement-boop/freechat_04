@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Hanzala04 Offline Messenger</title>
+    <meta name="description" content="Clean, modern mobile messaging application with local storage, contacts management, and green and white theme." />
+    <meta property="og:title" content="Hanzala04 Offline Messenger" />
+    <meta property="og:description" content="Clean, modern mobile messaging application with local storage, contacts management, and green and white theme." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/freechat_04/assets/index-DhuIsGBt.js"></script>
+    <link rel="stylesheet" crossorigin href="/freechat_04/assets/index-CQSnqLTa.css">
+  </head>
+  <body class="bg-slate-100 text-slate-900 antialiased selection:bg-emerald-500 selection:text-white">
+    <div id="root">
+      <div id="app-boot-container" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; padding: 24px; text-align: center;">
+        <div style="width: 60px; height: 60px; border-radius: 18px; background: linear-gradient(135deg, #059669 0%, #10b981 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.35); margin-bottom: 20px;">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h1 style="font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 8px 0; letter-spacing: -0.02em;">Hanzala04</h1>
+        <p id="boot-status-text" style="font-size: 14px; color: #64748b; margin: 0 0 20px 0;">Loading messenger and offline storage...</p>
+        <div id="boot-spinner" style="width: 28px; height: 28px; border: 3px solid #e2e8f0; border-top-color: #059669; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+        <div id="boot-error-box" style="display: none; max-width: 460px; margin-top: 24px; padding: 16px 20px; background: #ffffff; border: 1px solid #fee2e2; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left;">
+          <div style="font-weight: 600; font-size: 14px; color: #b91c1c; margin-bottom: 6px;">Application Startup Notice</div>
+          <div id="boot-error-msg" style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px;"></div>
+          <button onclick="window.location.reload()" style="background: #059669; color: #ffffff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">Reload Application</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function() {
+        window.addEventListener('error', function(e) {
+          var box = document.getElementById('boot-error-box');
+          var text = document.getElementById('boot-error-msg');
+          var spinner = document.getElementById('boot-spinner');
+          if (box && text) {
+            text.textContent = (e && e.message) ? e.message : 'Failed to load application assets.';
+            box.style.display = 'block';
+            if (spinner) spinner.style.display = 'none';
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
